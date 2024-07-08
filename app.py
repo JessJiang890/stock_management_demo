@@ -7,8 +7,6 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 @app.route('/')
 def index():
     data = summary()
-    for row in data:
-        print(row)
     return render_template("home.html", data = data)
     
 @app.route('/search', methods=['POST', 'GET'])
@@ -37,7 +35,6 @@ def assign():
         tags = request.form['asset_tag']
         tags = [x.strip() for x in tags.splitlines()]
 
-        print(serials, tags)
         for t in tags:
             if len(t) != 6 or not t.isnumeric():
                 flash("Asset tag format error!")

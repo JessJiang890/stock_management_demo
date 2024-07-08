@@ -134,7 +134,6 @@ def summary():
 def unassign_items(lst):
     conn = get_db_connection()
     for s in lst:
-        print(s)
         query = f"SELECT COUNT(*) FROM Inventory WHERE Serial_Num = '{s}'"
         data = conn.execute(query).fetchall()[0][0]
         if data != 1:
