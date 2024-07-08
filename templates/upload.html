@@ -1,0 +1,61 @@
+{% extends 'base.html'%}
+
+{% block head%} 
+
+
+{% endblock%}
+
+{% block body%}
+<center>
+    <h3>Upload New Data File</h3>
+    <form method=post enctype=multipart/form-data>
+        <div class="row">
+            <div class="col"><input type=file name=file></div>
+            <div class="col col-lg-2"><input type="text" class="form-control" placeholder="PO number (leave empty if not needed)" name="po_num"></div>
+            <div class="col"><input type=submit value=Process></div>
+        </div>
+    </form>
+</center>
+<br>
+<center>
+    <div style="width:75%;height:750px;overflow:auto;">
+        <table class="table table-info table-striped-columns table-hover">
+            
+            <thead>
+                <tr class="table-success">
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Item Name</label></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Serial Number</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Inventory Date</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Used Date</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">PO Number</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Ticket Number</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Asset Tag</label ></th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for row in data:%}
+                    <tr class="table-success">
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[0]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[1]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[2]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[3]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[4]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[5]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[6]}}</label></td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</center>
+<br>
+
+<center>
+    <form method=post>
+        <div class="row">
+            <div class="col"><input type="submit" name="submit_button" value="Upload"></div>
+        </div>
+    </form>
+</center>
+{% endblock%}

@@ -1,0 +1,7 @@
+*.csv
+*.sql
+*.xlsx
+upload_data.py
+init_db.py
+query.py
+env/
