@@ -110,6 +110,10 @@ def assign_items(serial, ticket, asset):
         data = conn.execute(query).fetchall()[0][0]
         if data != 1 :
             raise NameError()
+        query = f"SELECT COUNT(*) FROM Inventory WHERE Serial_Num = '{serial[i]}' AND Asset_Tag = '' AND Ticket_Num = ''"
+        data = conn.execute(query).fetchall()[0][0]
+        if data != 1 :
+            raise SyntaxError()
         query = f"UPDATE Inventory SET Used_Date = CURRENT_TIMESTAMP, Ticket_Num = '{ticket}', Asset_Tag = '{asset[i]}' WHERE Serial_Num = '{serial[i]}'"
         conn.execute(query)
     conn.commit()

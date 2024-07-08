@@ -51,6 +51,10 @@ def assign():
         except NameError:
             flash("Serial number not found in database!")
             return redirect(url_for('search'))
+        except SyntaxError:
+            flash("Item has already been assigned to another ticket!")
+            return redirect(url_for('search'))
+
         
         return render_template('assign.html', data = data, name = list_all_items(), summary = get_summary(data))
 
