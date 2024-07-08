@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-from helper import execute_search, fetch_all_data, list_all_items, assign_items, summary, unassign_items
+from helper import execute_search, fetch_all_data, list_all_items, assign_items, summary, unassign_items, get_summary
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
@@ -25,7 +25,7 @@ def search():
 @app.route('/assign', methods=['POST', 'GET'])
 def assign():
     if request.method == "GET":
-            return render_template('assign.html')
+            return render_template('assign.html', data = fetch_all_data(), name = list_all_items(), summary = get_summary(fetch_all_data()))
     else:        
         serials = request.form['serial_num']
         serials = [x.strip() for x in serials.splitlines()]
@@ -52,7 +52,7 @@ def assign():
             flash("Serial number not found in database!")
             return redirect(url_for('search'))
         
-        return render_template('index.html', data = data, name = list_all_items())
+        return render_template('assign.html', data = data, name = list_all_items(), summary = get_summary(data))
 
 
 @app.route('/unassign', methods=['POST', 'GET'])

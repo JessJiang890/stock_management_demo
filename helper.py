@@ -144,3 +144,27 @@ def unassign_items(lst):
     conn.close()
     data = find_items(lst)
     return data
+
+def get_summary(data):
+    if len(data) > 100 :
+        return "N/A"
+    count = {}
+    dix = {}
+    for row in data:
+        name = row[0]
+        serial = row[1]
+        tag = row[-1]
+        print(serial, tag)
+        if name in dix:
+            dix[name] += f"\r\n\r\n{serial}\r\n{tag}"
+        else:
+            dix[name] = f"\r\n\r\n{serial}\r\n{tag}"
+        if name in count:
+            count[name] += 1
+        else:
+            count[name] = 1
+    txt = ""
+    for row in count:
+        txt += f"{count[row]} x {row}"
+        txt += f"{dix[name]}"
+    return txt
