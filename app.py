@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-import sqlite3
-from helper import get_db_connection, execute_search, fetch_all_data, list_all_items, assign_items, summary, unassign_items
+from helper import execute_search, fetch_all_data, list_all_items, assign_items, summary, unassign_items
 
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
