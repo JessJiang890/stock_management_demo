@@ -1,0 +1,81 @@
+{% extends 'base.html'%}
+
+{% block head%} 
+
+
+{% endblock%}
+
+{% block body%}
+
+<center>
+    <div style="width:75%;height:750px;overflow:auto;">
+        <table class="table table-info table-striped-columns table-hover">
+            
+            <thead>
+                <tr class="table-success">
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Item Name</label></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Serial Number</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Inventory Date</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Used Date</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">PO Number</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Ticket Number</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Asset Tag</label ></th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for row in data:%}
+                    <tr class="table-success">
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[0]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[1]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[2]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[3]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[4]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[5]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row[6]}}</label></td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</center>
+<br>
+<br>
+<center>
+    <div style="margin: 5 auto; width:75%;">
+        <h3 style="color:deepskyblue;font-size:16;font-family:'Courier New';"><strong>Search Items:</strong></h3>
+        <form action="{{ url_for('search') }}" method="post">
+            <div class="row">
+                <div class="col">
+                    <select class="form-select" name="item_name" >
+                        <option selected>Item Name</option>
+                        {% for o in name %}
+                        <option value="{{ o }}">{{ o }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col">
+                <input type="text" class="form-control" placeholder="Serial Number" name="serial_num">
+                </div>
+                <div class="col">
+                <input type="text" class="form-control" placeholder="PO Number" name="po_num">
+                </div>
+                <div class="col">
+                <input type="text" class="form-control" placeholder="Ticket Number" name="ticket_num">
+                </div>
+                <div class="col">
+                <input type="text" class="form-control" placeholder="Asset Tag" name="asset_tag">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col">
+                    <input type="submit" value="Search">
+                </div>
+            </div>
+        </form>
+    </div>
+</center>
+<br>
+{% endblock%}

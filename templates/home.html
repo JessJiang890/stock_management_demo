@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+{% block head%} 
+
+
+{% endblock%}
+
+{% block body%}
+
+<center>
+    <div style="width:75%;height:750px;overflow:auto;">
+        <table class="table table-info table-striped-columns table-hover">
+            
+            <thead>
+                <tr class="table-success">
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Item Name</label></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Unassigned</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Assigned</label ></th>
+                    <th class="table-success"><label style="color:tomato;font-size:160%;">Total</label ></th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for row in data:%}
+                    <tr class="table-success">
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{row}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{data[row][0]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{data[row][1]}}</label></td>
+                        <td class="table-success"><label style="color:#6b5b95;font-size:120%;">{{data[row][2]}}</label></td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</center>
+{% endblock%}
