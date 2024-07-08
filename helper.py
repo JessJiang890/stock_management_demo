@@ -154,17 +154,16 @@ def get_summary(data):
         name = row[0]
         serial = row[1]
         tag = row[-1]
-        print(serial, tag)
         if name in dix:
-            dix[name] += f"\r\n\r\n{serial}\r\n{tag}"
+            dix[name] += f"\r\n\r\n\t{serial}\r\n\t{tag}"
         else:
-            dix[name] = f"\r\n\r\n{serial}\r\n{tag}"
+            dix[name] = f"\t{serial}\r\n\t{tag}"
         if name in count:
             count[name] += 1
         else:
             count[name] = 1
     txt = ""
     for row in count:
-        txt += f"{count[row]} x {row}"
-        txt += f"{dix[name]}"
-    return txt
+        txt += f"\r\n{count[row]} x {row}\r\n"
+        txt += f"\r\n{dix[row]}\r\n"
+    return txt[2:]
