@@ -1,1 +1,1 @@
-gunicorn --chdir slack app:app
+gunicorn --timeout 600 app:app
