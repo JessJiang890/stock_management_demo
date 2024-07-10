@@ -122,7 +122,7 @@ def upload_file():
                     
                     return render_template('upload.html', data = data.values)
                 except Exception as e:
-                    flash("Operation Failed! \n" + repr(e))
+                    flash("Operation Failed! \n" + repr(e) + '\n' + os.walk(os.getcwd()))
                     return render_template("upload.html", data = [])
     return render_template("upload.html", data = [])
 
