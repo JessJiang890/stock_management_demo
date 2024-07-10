@@ -92,32 +92,24 @@ def upload_file():
                     flash('ERROR! No files received!')
                     return render_template("upload.html", data = [])
                 file = request.files['file']
-                # If the user does not select a file, the browser submits an
-                # empty file without a filename.
-                # if file.filename == '':
-                #     flash('No files selected !!')
-                #     return render_template("upload.html", data = [])
-                # if not (".csv" in file.filename or ".xlsx" in file.filename):
-                #     flash('Only upload .csv or .xlsx files please!!')
-                #     return render_template("upload.html", data = [])
+                if file.filename == '':
+                    flash('No files selected !!')
+                    return render_template("upload.html", data = [])
+                if not (".csv" in file.filename or ".xlsx" in file.filename):
+                    flash('Only upload .csv or .xlsx files please!!')
+                    return render_template("upload.html", data = [])
                 
-                # try:
-                    
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-        
-                # except Exception as e:
-                #     flash("Operation Failed! \n" + repr(e) + '\n' + os.walk(app.config['UPLOAD_FOLDER']))
-                #     return render_template("upload.html", data = [])
-                flash('file saved '+ str([x for x in os.walk(app.config['UPLOAD_FOLDER'])]))
-                # if ".csv" in file.filename:
-                #     df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                #     df = df.dropna(axis=1, how='all')
-                # elif ".xlsx" in file.filename:
-                #     df = pd.read_excel(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                #     df = df.dropna(axis=1, how='all')
-                # else:
-                #     flash('Only upload .csv or .xlsx files please!!')
-                #     return render_template("upload.html", data = [])
+                
+                if ".csv" in file.filename:
+                    df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                    df = df.dropna(axis=1, how='all')
+                elif ".xlsx" in file.filename:
+                    df = pd.read_excel(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                    df = df.dropna(axis=1, how='all')
+                else:
+                    flash('Only upload .csv or .xlsx files please!!')
+                    return render_template("upload.html", data = [])
                 
                 # po = request.form['po_num']
                 # if len(po) < 3 or not "PO_" in po:
