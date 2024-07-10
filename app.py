@@ -83,47 +83,47 @@ def upload_file():
                 os.unlink(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"))
             return render_template('index.html', data = fetch_all_data(), name = list_all_items())
         else:
-            try:
-                # if 'file' not in request.files:
-                #     flash('ERROR! No files received!')
-                #     return render_template("upload.html", data = [])
-                # file = request.files['file']
-                # # If the user does not select a file, the browser submits an
-                # # empty file without a filename.
-                # if file.filename == '':
-                #     flash('No files selected !!')
-                #     return render_template("upload.html", data = [])
-                # if not (".csv" in file.filename or ".xlsx" in file.filename):
-                #     flash('Only upload .csv or .xlsx files please!!')
-                #     return render_template("upload.html", data = [])
-                
-                # file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                # if ".csv" in file.filename:
-                #     df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                #     df = df.dropna(axis=1, how='all')
-                # elif ".xlsx" in file.filename:
-                #     df = pd.read_excel(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                #     df = df.dropna(axis=1, how='all')
-                # else:
-                #     flash('Only upload .csv or .xlsx files please!!')
-                #     return render_template("upload.html", data = [])
-                
-                # po = request.form['po_num']
-                # if len(po) < 3 or not "PO_" in po:
-                #     data = transform_df(df, "")
-                # else:
-                #     data = transform_df(df, po)
+                if 'file' not in request.files:
+                    flash('ERROR! No files received!')
+                    return render_template("upload.html", data = [])
+                file = request.files['file']
+                # If the user does not select a file, the browser submits an
+                # empty file without a filename.
+                if file.filename == '':
+                    flash('No files selected !!')
+                    return render_template("upload.html", data = [])
+                if not (".csv" in file.filename or ".xlsx" in file.filename):
+                    flash('Only upload .csv or .xlsx files please!!')
+                    return render_template("upload.html", data = [])
+                try:
+                    
+                    # file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                    # if ".csv" in file.filename:
+                    #     df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                    #     df = df.dropna(axis=1, how='all')
+                    # elif ".xlsx" in file.filename:
+                    #     df = pd.read_excel(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                    #     df = df.dropna(axis=1, how='all')
+                    # else:
+                    #     flash('Only upload .csv or .xlsx files please!!')
+                    #     return render_template("upload.html", data = [])
+                    
+                    # po = request.form['po_num']
+                    # if len(po) < 3 or not "PO_" in po:
+                    #     data = transform_df(df, "")
+                    # else:
+                    #     data = transform_df(df, po)
 
-                # for filename in os.listdir(app.config['UPLOAD_FOLDER']):
-                #     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                #     os.unlink(file_path)
-                data = pd.DataFrame()
-                data.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"), index=False, header=True)
-                
-                return render_template('upload.html', data = data.values)
-            except Exception as e:
-                flash("Operation Failed! \n" + repr(e))
-                return render_template("upload.html", data = [])
+                    # for filename in os.listdir(app.config['UPLOAD_FOLDER']):
+                    #     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    #     os.unlink(file_path)
+                    data = pd.DataFrame()
+                    data.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"), index=False, header=True)
+                    
+                    return render_template('upload.html', data = data.values)
+                except Exception as e:
+                    flash("Operation Failed! \n" + repr(e))
+                    return render_template("upload.html", data = [])
     return render_template("upload.html", data = [])
 
 @app.route('/unassign', methods=['POST', 'GET'])
@@ -145,7 +145,7 @@ def unassign():
             return render_template('unassign.html')
 if __name__ == "__main__":
     try:
-        os.mkdir(app.config['UPLOAD_FOLDER'])
+        os.mkdir(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER']) )
     except:
         pass
     app.run(host="0.0.0.0", port=8000)
