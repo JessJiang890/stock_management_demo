@@ -100,14 +100,15 @@ def upload_file():
                 if not (".csv" in file.filename or ".xlsx" in file.filename):
                     flash('Only upload .csv or .xlsx files please!!')
                     return render_template("upload.html", data = [])
-                try:
+                
+                # try:
                     
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
         
-                except Exception as e:
-                    flash("Operation Failed! \n" + repr(e) + '\n' + os.walk(os.getcwd()))
-                    return render_template("upload.html", data = [])
-                flash('file saved '+os.walk(app.config['UPLOAD_FOLDER']))
+                # except Exception as e:
+                #     flash("Operation Failed! \n" + repr(e) + '\n' + os.walk(app.config['UPLOAD_FOLDER']))
+                #     return render_template("upload.html", data = [])
+                flash(f'file {file.filename} saved '+os.walk(app.config['UPLOAD_FOLDER']))
                 if ".csv" in file.filename:
                     df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
                     df = df.dropna(axis=1, how='all')
