@@ -3,7 +3,12 @@ import pandas as pd
 import os
 from helper import execute_search, fetch_all_data, list_all_items, assign_items, summary, unassign_items, get_summary, transform_df, get_db_engine
 
-UPLOAD_FOLDER = 'uploads'
+
+try:
+    os.mkdir(os.path.join(os.getcwd(), "uploads" ))
+except:
+    pass
+UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads" )
 ALLOWED_EXTENSIONS = {'csv', 'xlsx'}
 
 app = Flask(__name__)
@@ -144,8 +149,4 @@ def unassign():
             flash("Safety check did not pass!")
             return render_template('unassign.html')
 if __name__ == "__main__":
-    try:
-        os.mkdir(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER']) )
-    except:
-        pass
     app.run(host="0.0.0.0", port=8000)
