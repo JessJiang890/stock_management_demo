@@ -103,7 +103,7 @@ def upload_file():
                 
                 # try:
                     
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                # file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
         
                 # except Exception as e:
                 #     flash("Operation Failed! \n" + repr(e) + '\n' + os.walk(app.config['UPLOAD_FOLDER']))
