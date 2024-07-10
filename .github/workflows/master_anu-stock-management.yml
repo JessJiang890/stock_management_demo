@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up Python version
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v1
         with:
           python-version: '3.11'
 
@@ -65,12 +65,12 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{  secrets.AZUREAPPSERVICE_CLIENTID_5DE64379C25946A4ADCFD389A382519F  }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_B6DFE097BDCF4D6CAE057A8955C28EE0 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_2CA3DB359346408A803B25B229918E9B }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_072D7F2E185C4BFD827F98863E46E37B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6672284B872E469DBB2FCBD7198B5A31 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_9DC95453874249F49DD1E6AC0600AAF5 }}
 
       - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
+        uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
           app-name: 'anu-stock-management'
