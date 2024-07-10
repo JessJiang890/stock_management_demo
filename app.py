@@ -103,6 +103,7 @@ def upload_file():
                 # try:
                     
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                flash('file saved '+os.walk(app.config['UPLOAD_FOLDER']))
                 if ".csv" in file.filename:
                     df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
                     df = df.dropna(axis=1, how='all')
@@ -118,6 +119,7 @@ def upload_file():
                     data = transform_df(df, "")
                 else:
                     data = transform_df(df, po)
+                flash('file saved '+os.walk(app.config['UPLOAD_FOLDER']))
 
                 for filename in os.listdir(app.config['UPLOAD_FOLDER']):
                     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -125,6 +127,7 @@ def upload_file():
                 data = pd.DataFrame()
                 data.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"), index=False, header=True)
                 
+                flash('file saved '+os.walk(app.config['UPLOAD_FOLDER']))
                 return render_template('upload.html', data = data.values)
         
                 # except Exception as e:
