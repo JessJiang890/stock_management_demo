@@ -111,20 +111,19 @@ def upload_file():
                     flash('Only upload .csv or .xlsx files please!!')
                     return render_template("upload.html", data = [])
                 
-                # po = request.form['po_num']
-                # if len(po) < 3 or not "PO_" in po:
-                #     data = transform_df(df, "")
-                # else:
-                #     data = transform_df(df, po)
-                # flash('file saved '+ str([x for x in os.walk(app.config['UPLOAD_FOLDER'])]))
+                po = request.form['po_num']
+                if len(po) < 3 or not "PO_" in po:
+                    data = transform_df(df, "")
+                else:
+                    data = transform_df(df, po)
 
-                # for filename in os.listdir(app.config['UPLOAD_FOLDER']):
-                #     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                for filename in os.listdir(app.config['UPLOAD_FOLDER']):
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    flash(file_path)
                 #     os.unlink(file_path)
                 data = pd.DataFrame()
                 data.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"), index=False, header=True)
                 
-                flash('file saved '+ str([x for x in os.walk(app.config['UPLOAD_FOLDER'])]))
                 return render_template('upload.html', data = data.values)
     return render_template("upload.html", data = [])
 
