@@ -140,4 +140,8 @@ def unassign():
             flash("Safety check did not pass!")
             return render_template('unassign.html')
 if __name__ == "__main__":
+    try:
+        os.mkdir(app.config['UPLOAD_FOLDER'])
+    except:
+        pass
     app.run(host="0.0.0.0", port=8000)
