@@ -120,7 +120,7 @@ def upload_file():
                 for filename in os.listdir(app.config['UPLOAD_FOLDER']):
                     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     os.unlink(file_path)
-                data = pd.DataFrame()
+                
                 data.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"), index=False, header=True)
                 
                 return render_template('upload.html', data = data.values)
