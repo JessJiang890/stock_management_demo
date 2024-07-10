@@ -9,21 +9,32 @@ def get_db_engine():
 
 def transform_df(df, po):
     output = pd.DataFrame(columns=['Item_Name','Serial_Num','Inventory_Date','Used_Date','PO_Num','Ticket_Num','Asset_Tag'])
-    empty = [''] * df.shape[0]
-    names = [df.columns[0]] * df.shape[0]
-    serial = df[df.columns[0]].tolist()
-    date = [datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")] * df.shape[0]
-    if po == 'no':
-        po_num = [''] * df.shape[0]
-    else:
-        po_num = [po.strip()] * df.shape[0]
-    output['Item_Name'] = names
-    output['Serial_Num'] = serial
-    output['Inventory_Date'] = date
-    output['Used_Date'] = empty
-    output['PO_Num'] = po_num
-    output['Ticket_Num'] = empty
-    output['Asset_Tag'] = empty
+    one = []
+    two = []
+    three = []
+    four = []
+    five = []
+    six = []
+    seven = []
+    for name in df.columns:
+        column = df[name].dropna()
+        one += [name] * column.size
+        two += column.tolist()
+        three += [datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")] * column.size
+        four += [''] * column.size
+        if po == 'no':
+            five += [''] * column.size
+        else:
+            five += [po.strip()] * column.size
+        six += [''] * column.size
+        seven += [''] * column.size
+    output['Item_Name'] = one
+    output['Serial_Num'] = two
+    output['Inventory_Date'] = three
+    output['Used_Date'] = four
+    output['PO_Num'] = five
+    output['Ticket_Num'] = six
+    output['Asset_Tag'] = seven
     print(output)
     choice = input("Final confirmation before uploading, type 'yes' to upload, 'no' to cancel operation: ")
     if choice == "no":

@@ -11,11 +11,13 @@ cur = connection.cursor()
 
 with open("db_Inventory.csv", "r") as file:
         
-        for index, row in enumerate(csv.reader(file)):
-            cur.execute("""
-                INSERT INTO Inventory (Item_Name, Serial_Num, Inventory_Date, Used_Date, PO_Num, Ticket_Num, Asset_Tag)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
-                """, [*row[1:]])
+    for index, row in enumerate(csv.reader(file)):
+        if "" in row[1:3]:
+            continue
+        cur.execute("""
+            INSERT INTO Inventory (Item_Name, Serial_Num, Inventory_Date, Used_Date, PO_Num, Ticket_Num, Asset_Tag)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, [*row[1:]])
             
 id = 0
 for row in cur.execute("SELECT * from Inventory"):

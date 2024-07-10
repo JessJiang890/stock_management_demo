@@ -1,4 +1,43 @@
 import sqlite3
+import pandas as pd
+import datetime
+from sqlalchemy import create_engine
+
+def get_db_engine():
+    engine = create_engine('sqlite:///database.db', echo=False)
+    return engine
+
+def transform_df(df, po):
+    output = pd.DataFrame(columns=['Item_Name','Serial_Num','Inventory_Date','Used_Date','PO_Num','Ticket_Num','Asset_Tag'])
+    one = []
+    two = []
+    three = []
+    four = []
+    five = []
+    six = []
+    seven = []
+    for name in df.columns:
+        column = df[name].dropna().tolist()
+        column = [x for x in column if len(x.strip()) > 2]
+        one += [name] * len(column)
+        two += column
+        three += [datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")] * len(column)
+        four += [''] * len(column)
+        if po == 'no':
+            five += [''] * len(column)
+        else:
+            five += [po.strip()] * len(column)
+        six += [''] * len(column)
+        seven += [''] * len(column)
+    output['Item_Name'] = one
+    output['Serial_Num'] = two
+    output['Inventory_Date'] = three
+    output['Used_Date'] = four
+    output['PO_Num'] = five
+    output['Ticket_Num'] = six
+    output['Asset_Tag'] = seven
+    return output
+    
 
 def get_db_connection():
     conn = sqlite3.connect('database.db')
