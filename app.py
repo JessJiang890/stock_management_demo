@@ -68,6 +68,9 @@ def assign():
 def upload_file():
     if request.method == 'POST':
         if 'submit_button' in request.form and request.form['submit_button'] == 'Upload':
+            if not os.path.isfile(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv")):
+                flash("Cannot upload before processing!")
+                return render_template("upload.html", data = [])
             data = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"))
             data = data.fillna('')
             engine = get_db_engine()
@@ -76,6 +79,8 @@ def upload_file():
                 flash("Operation Successful!")
             except Exception as e:
                 flash("Operation Failed! \n" + repr(e))
+            finally:
+                os.unlink(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"))
             return render_template('index.html', data = fetch_all_data(), name = list_all_items())
         else:
             if 'file' not in request.files:
