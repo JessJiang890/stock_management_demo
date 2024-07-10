@@ -95,16 +95,17 @@ def upload_file():
                 s = ""
                 for row in request.files:
                     s += str(row)
+                    s += str(request.files[row].filename)
                     s += '\n'
                 flash(s)
                 # If the user does not select a file, the browser submits an
                 # empty file without a filename.
-                if file.filename == '':
-                    flash('No files selected !!')
-                    return render_template("upload.html", data = [])
-                if not (".csv" in file.filename or ".xlsx" in file.filename):
-                    flash('Only upload .csv or .xlsx files please!!')
-                    return render_template("upload.html", data = [])
+                # if file.filename == '':
+                #     flash('No files selected !!')
+                #     return render_template("upload.html", data = [])
+                # if not (".csv" in file.filename or ".xlsx" in file.filename):
+                #     flash('Only upload .csv or .xlsx files please!!')
+                #     return render_template("upload.html", data = [])
                 
                 # try:
                     
@@ -113,31 +114,31 @@ def upload_file():
                 # except Exception as e:
                 #     flash("Operation Failed! \n" + repr(e) + '\n' + os.walk(app.config['UPLOAD_FOLDER']))
                 #     return render_template("upload.html", data = [])
-                flash(f'file {file.filename} saved '+os.walk(app.config['UPLOAD_FOLDER']))
-                if ".csv" in file.filename:
-                    df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                    df = df.dropna(axis=1, how='all')
-                elif ".xlsx" in file.filename:
-                    df = pd.read_excel(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
-                    df = df.dropna(axis=1, how='all')
-                else:
-                    flash('Only upload .csv or .xlsx files please!!')
-                    return render_template("upload.html", data = [])
+                flash('file saved '+ str([x for x in os.walk(app.config['UPLOAD_FOLDER'])]))
+                # if ".csv" in file.filename:
+                #     df = pd.read_csv(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                #     df = df.dropna(axis=1, how='all')
+                # elif ".xlsx" in file.filename:
+                #     df = pd.read_excel(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                #     df = df.dropna(axis=1, how='all')
+                # else:
+                #     flash('Only upload .csv or .xlsx files please!!')
+                #     return render_template("upload.html", data = [])
                 
-                po = request.form['po_num']
-                if len(po) < 3 or not "PO_" in po:
-                    data = transform_df(df, "")
-                else:
-                    data = transform_df(df, po)
-                flash('file saved '+os.walk(app.config['UPLOAD_FOLDER']))
+                # po = request.form['po_num']
+                # if len(po) < 3 or not "PO_" in po:
+                #     data = transform_df(df, "")
+                # else:
+                #     data = transform_df(df, po)
+                # flash('file saved '+ str([x for x in os.walk(app.config['UPLOAD_FOLDER'])]))
 
-                for filename in os.listdir(app.config['UPLOAD_FOLDER']):
-                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    os.unlink(file_path)
+                # for filename in os.listdir(app.config['UPLOAD_FOLDER']):
+                #     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                #     os.unlink(file_path)
                 data = pd.DataFrame()
                 data.to_csv(os.path.join(app.config['UPLOAD_FOLDER'], "temp.csv"), index=False, header=True)
                 
-                flash('file saved '+os.walk(app.config['UPLOAD_FOLDER']))
+                flash('file saved '+ str([x for x in os.walk(app.config['UPLOAD_FOLDER'])]))
                 return render_template('upload.html', data = data.values)
     return render_template("upload.html", data = [])
 
