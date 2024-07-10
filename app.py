@@ -91,7 +91,12 @@ def upload_file():
                 if 'file' not in request.files:
                     flash('ERROR! No files received!')
                     return render_template("upload.html", data = [])
-                file = request.files['file']
+                # file = request.files['file']
+                s = ""
+                for row in request.files:
+                    s += str(row)
+                    s += '\n'
+                flash(s)
                 # If the user does not select a file, the browser submits an
                 # empty file without a filename.
                 if file.filename == '':
