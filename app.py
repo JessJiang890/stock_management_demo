@@ -91,13 +91,7 @@ def upload_file():
                 if 'file' not in request.files:
                     flash('ERROR! No files received!')
                     return render_template("upload.html", data = [])
-                # file = request.files['file']
-                s = ""
-                for row in request.files:
-                    s += str(row)
-                    s += str(request.files[row].filename)
-                    s += '\n'
-                flash(s)
+                file = request.files['file']
                 # If the user does not select a file, the browser submits an
                 # empty file without a filename.
                 # if file.filename == '':
@@ -109,7 +103,7 @@ def upload_file():
                 
                 # try:
                     
-                # file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
         
                 # except Exception as e:
                 #     flash("Operation Failed! \n" + repr(e) + '\n' + os.walk(app.config['UPLOAD_FOLDER']))
